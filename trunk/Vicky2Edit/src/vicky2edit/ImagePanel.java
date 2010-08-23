@@ -32,6 +32,7 @@ import java.awt.*;
 public class ImagePanel extends JPanel{
 
     private BufferedImage image;
+    private int zoom=1;
 
     public ImagePanel(String basepath) {
        try {
@@ -50,8 +51,11 @@ public class ImagePanel extends JPanel{
     @Override
     public void paintComponent(Graphics g) {
         //g.drawImage(image, 0, 0, null); // see javadoc for more info on the parameters
-        g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), 0, image.getHeight(), image.getWidth(), 0, null);
+        g.drawImage(image, 0, 0, image.getWidth()*zoom, image.getHeight()*zoom, 0, image.getHeight(), image.getWidth(), 0, null);
 
+    }
+    public void setZoom(int i){
+        zoom=i;
     }
 
 }

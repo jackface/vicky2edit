@@ -150,6 +150,11 @@ public class Vicky2EditView extends FrameView {
 
         jPanel1.setName("jPanel1"); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(5616, 2160));
+        jPanel1.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                jPanel1MouseWheelMoved(evt);
+            }
+        });
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel1MouseClicked(evt);
@@ -308,8 +313,8 @@ public class Vicky2EditView extends FrameView {
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
-        int x = evt.getX();
-        int y = evt.getY();
+        int x = evt.getX()/zoom;
+        int y = evt.getY()/zoom;
 
         int provID = mMap.getProvID(x, y);
         p = new Province(provID, basepath);
@@ -326,6 +331,50 @@ public class Vicky2EditView extends FrameView {
         p.setProvText(provData);
     }//GEN-LAST:event_SaveButtonActionPerformed
 
+    private void jPanel1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jPanel1MouseWheelMoved
+        // TODO add your handling code here:
+        int notches = evt.getWheelRotation();
+        if (notches < 0) {
+            System.out.println("Mouse wheel moved up: " + notches);
+
+            if(zoom == 4) {
+                System.out.println("Can't zoom in more");
+            } else {
+                zoom++;
+            }
+
+            System.out.println("Current zoom: " + zoom);
+        }
+        else {
+            System.out.println("Mouse wheel moved down: " + notches);
+            if(zoom == 1) {
+                System.out.println("Can't zoom out more");
+            } else {
+                zoom--;
+            }
+             System.out.println("Current zoom: " + zoom);
+        }
+
+        /* Repaint */
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 5616*zoom, Short.MAX_VALUE)
+            );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 2160*zoom, Short.MAX_VALUE)
+            );
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(5616*zoom, 2160*zoom));
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(5616*zoom, 2160*zoom));
+        jPanel1.setPreferredSize(new java.awt.Dimension(5616*zoom, 2160*zoom));
+        jPanel1.setMaximumSize(new java.awt.Dimension(5616*zoom, 2160*zoom));
+        jPanel1.setZoom(zoom);
+        jPanel1.repaint();
+
+    }//GEN-LAST:event_jPanel1MouseWheelMoved
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ProvIDTextField;
     private javax.swing.JTextField ProvNameTextField;
@@ -333,7 +382,7 @@ public class Vicky2EditView extends FrameView {
     private javax.swing.JButton SaveButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private ImagePanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -356,5 +405,6 @@ public class Vicky2EditView extends FrameView {
     public String basepath = "C:/Program Files/Paradox Interactive/Victoria 2/";
     public Map mMap = new Map(basepath);
     private Province p;
+    private int zoom = 1;
 
 }
