@@ -234,6 +234,11 @@ public class Vicky2EditView extends FrameView {
         SaveButton.setFont(resourceMap.getFont("SaveButton.font")); // NOI18N
         SaveButton.setText(resourceMap.getString("SaveButton.text")); // NOI18N
         SaveButton.setName("SaveButton"); // NOI18N
+        SaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveButtonActionPerformed(evt);
+            }
+        });
         jPanel3.add(SaveButton, java.awt.BorderLayout.PAGE_END);
 
         mainPanel.add(jPanel3, java.awt.BorderLayout.LINE_END);
@@ -313,6 +318,13 @@ public class Vicky2EditView extends FrameView {
 
         ProvTextArea.setText(p.getProvText());
     }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Save button pressed");
+        String provData = ProvTextArea.getText();
+        p.setProvText(provData);
+    }//GEN-LAST:event_SaveButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ProvIDTextField;
