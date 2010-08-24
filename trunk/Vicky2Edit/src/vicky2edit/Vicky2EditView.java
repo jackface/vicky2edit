@@ -41,6 +41,8 @@ public class Vicky2EditView extends FrameView {
     public Vicky2EditView(SingleFrameApplication app) {
         super(app);
 
+        c = new Countries(basepath);
+        
         initComponents();
         SaveButton.setLabel("Save");
 
@@ -406,5 +408,6 @@ public class Vicky2EditView extends FrameView {
     public Map mMap = new Map(basepath);
     private Province p;
     private int zoom = 1;
+    public Countries c;
 
 }
