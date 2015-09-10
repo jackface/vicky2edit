@@ -1,0 +1,1 @@
+Vicky2Edit is a scenario editor for Victoria (http://www.victoria2.com/).
